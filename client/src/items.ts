@@ -2,6 +2,7 @@ import {Http, Headers} from 'angular2/http';
 import {Store} from '@ngrx/store';
 import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
+import {model} from '../temp/model';
 
 const BASE_URL = 'http://localhost:3000/items/';
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
@@ -64,8 +65,9 @@ export class ItemsService {
   }
 
   loadItems() {
-    this.http.get(BASE_URL)
-      .map(res => res.json())
+    model.get(['items', {from: 0, to: 2}, ['id', 'name', 'description']])
+      .map(res => res.json.items)
+      .map(items => Object.keys(items).map(key => items[key]))
       .map(payload => ({ type: 'ADD_ITEMS', payload }))
       .subscribe(action => this.store.dispatch(action));
   }
@@ -75,19 +77,20 @@ export class ItemsService {
   }
 
   createItem(item: Item) {
-    this.http.post(`${BASE_URL}`, JSON.stringify(item), HEADER)
-      .map(res => res.json())
+    item.id = Math.floor(Math.random() * (100 - 3 + 1) + 3);
+    model.setValue(['items'], item)
       .map(payload => ({ type: 'CREATE_ITEM', payload }))
       .subscribe(action => this.store.dispatch(action));
   }
 
   updateItem(item: Item) {
-    this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
-      .subscribe(action => this.store.dispatch({ type: 'UPDATE_ITEM', payload: item }));
+    model.setValue(['items', item.id], item)
+    .map(payload => ({ type: 'UPDATE_ITEM', payload }))
+    .subscribe(action => this.store.dispatch(action));
   }
 
   deleteItem(item: Item) {
-    this.http.delete(`${BASE_URL}${item.id}`)
+    model.setValue(['items', item.id], null)
       .subscribe(action => this.store.dispatch({ type: 'DELETE_ITEM', payload: item }));
   }
 }
