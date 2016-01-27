@@ -9,8 +9,8 @@ There are two main parts to this application. The first is the server which is i
 To get started run the commands below.
 
 ```
-$ git clone https://github.com/simpulton/ngrx-rest-app.git
-$ cd ngrx-rest-app
+$ git clone https://github.com/simpulton/ng2-falcor-app.git
+$ cd ng2-falcor-app
 $ npm install
 $ npm start
 ```

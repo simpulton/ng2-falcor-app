@@ -2,10 +2,12 @@ import {Http, Headers} from 'angular2/http';
 import {Store} from '@ngrx/store';
 import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
-import {model} from '../temp/model';
+import * as falcor from 'falcor';
+import {XMLHttpSource as HttpDataSource} from 'falcor-http-datasource';
 
-const BASE_URL = 'http://localhost:3000/items/';
-const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+const model = new falcor.Model({
+  source: new HttpDataSource('http://localhost:9090/model.json')
+});
 
 export interface Item {
   id: number;
