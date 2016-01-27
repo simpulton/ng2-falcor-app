@@ -78,7 +78,7 @@ export class ItemsService {
 
   createItem(item: Item) {
     item.id = Math.floor(Math.random() * (100 - 3 + 1) + 3);
-    model.setValue(['items'], item)
+    model.setValue('items', item)
       .map(payload => ({ type: 'CREATE_ITEM', payload }))
       .subscribe(action => this.store.dispatch(action));
   }
