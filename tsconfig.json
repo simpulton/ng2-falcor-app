@@ -22,7 +22,6 @@
     "client/spec/items.spec.ts",
     "client/src/app.ts",
     "client/src/items.ts",
-    "client/temp/model.ts",
     "client/typings/falcor-http-datasource.d.ts",
     "client/typings/falcor.d.ts",
     "client/vendor.ts"
