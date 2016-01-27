@@ -6,7 +6,7 @@ import * as falcor from 'falcor';
 import {XMLHttpSource as HttpDataSource} from 'falcor-http-datasource';
 
 const model = new falcor.Model({
-  source: new HttpDataSource('http://localhost:9090/model.json')
+  source: new HttpDataSource('http://localhost:9090/model.json', {crossDomain: true})
 });
 
 export interface Item {
